@@ -8,7 +8,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.util.Date;
 
-@RestControllerAdvice
+@RestControllerAdvice //Used for when errors happen while using the system
 public class ControllerExceptionHandler {
 
     //Handling file/url not found exception

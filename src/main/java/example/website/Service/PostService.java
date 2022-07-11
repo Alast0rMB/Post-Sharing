@@ -1,5 +1,6 @@
 package example.website.Service;
 
+import example.website.Exception.ResourceNotFoundException;
 import example.website.Model.Post;
 import example.website.Repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,11 @@ public class PostService {
 
     //Returns a post by its id
     public Post getPost(Long id){
-        return repository.findById(id).orElseThrow(()->new RuntimeException());
+        return repository.findById(id).orElseThrow(()->new ResourceNotFoundException("Not found Tutorial with id = " + id));
     }
 
     //Adds a new post to the
-    public Post addPost(Post post){
+    public Post savePost(Post post){
         return repository.save(post);
     }
 
@@ -32,7 +33,7 @@ public class PostService {
         Post post = getPost(id);
         post.setDescription(newPost.getDescription());
         post.setTitle(newPost.getTitle());
-        return repository.save(post);
+        return savePost(post);
     }
 
     //Delete a post from database

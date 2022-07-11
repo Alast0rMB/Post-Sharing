@@ -20,7 +20,7 @@ public class PostService {
 
     //Returns a post by its id
     public Post getPost(Long id){
-        return repository.findById(id).orElseThrow(()->new ResourceNotFoundException("Not found Tutorial with id = " + id));
+        return repository.findById(id).orElseThrow(()->new ResourceNotFoundException("Not found Post with id = " + id));
     }
 
     //Adds a new post to the

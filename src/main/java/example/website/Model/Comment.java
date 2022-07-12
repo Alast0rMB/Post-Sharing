@@ -10,8 +10,8 @@ import javax.persistence.*;
 @Table(name = "comments")
 public class Comment {
     @Id
-    @SequenceGenerator(name = "post_id_seq",sequenceName = "post_id_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "post_id_seq")
+    @SequenceGenerator(name = "comments_id_seq",sequenceName = "comments_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "comments_id_seq")
     private Long id;
 
     private String content;
@@ -21,6 +21,15 @@ public class Comment {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Post post;
+
+    public Comment(){}
+    public Comment(String content){
+        this.content=content;
+    }
+
+    public Long getId(){
+        return this.id;
+    }
 
     public String getContent() {
         return content;

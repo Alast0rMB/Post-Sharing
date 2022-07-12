@@ -5,6 +5,7 @@ import example.website.Model.Comment;
 import example.website.Model.Post;
 import example.website.Model.User;
 import example.website.Model.UserProfile;
+import example.website.Service.PostService;
 import example.website.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,8 @@ public class UserController {
     @Autowired
     private UserService service;
 
+    @Autowired
+    private PostService postService;
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAll(){
         List<User> users = service.getAll();
@@ -63,6 +66,9 @@ public class UserController {
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<HttpStatus> delete(@PathVariable(name = "id")Long id){
+        List<Post> posts = postService.getByUserId(id);
+        for(Post post: posts)
+            postService.deletePost(post.getId());
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -36,6 +36,7 @@ public class LoadData {
             userProfile1.setUser(use1);
             use2.setUserProfile(userProfile2);
             userProfile2.setUser(use2);
+            postOne.setUser(use1);
             userRepository.save(use1);
             userRepository.save(use2);
             profileRepository.save(userProfile1);

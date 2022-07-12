@@ -17,6 +17,10 @@ public class PostService {
         return repository.existsById(id);
     }
 
+    public List<Post> getByUserId(Long id){
+        return repository.findByUserId(id);
+    }
+
     //Returns the list of all posts
     public List<Post> getAll(){
         return repository.findAll();
@@ -29,6 +33,7 @@ public class PostService {
 
     //Adds a new post to the
     public Post savePost(Post post){
+
         return repository.save(post);
     }
 

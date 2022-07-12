@@ -1,7 +1,9 @@
 package example.website.Controller;
 
 import example.website.Model.Post;
+import example.website.Model.User;
 import example.website.Service.PostService;
+import example.website.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,13 @@ import java.util.List;
 public class PostController {
     @Autowired
     private PostService service;
+    @Autowired
+    private UserService userService;
+    @GetMapping("/users/{id}/posts")
+    public ResponseEntity<List<Post>> getByUser(@PathVariable Long id){
+        List<Post> posts = service.getByUserId(id);
+        return new ResponseEntity<>(posts,HttpStatus.OK);
+    }
 
     @GetMapping("/posts")
     //Response Entity is used for REST API, you can simply return the List as a JSON body to.
@@ -32,7 +41,9 @@ public class PostController {
     }
 
     @PostMapping("/posts")
-    public ResponseEntity<Post> create(@RequestBody Post post){
+    public ResponseEntity<Post> create(@RequestBody Post post,@RequestParam(name = "user",defaultValue = "1")Long userId){
+        User user = userService.getById(userId);
+        post.setUser(user);
         Post _post = service.savePost(post);
         return new ResponseEntity<>(_post,HttpStatus.CREATED);
     }

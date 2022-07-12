@@ -1,12 +1,16 @@
 package example.website.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity//Mapping the object to database
 @Table(name = "posts")
-public class Post {
+public class Post extends AuditModel {
     @Id
     @SequenceGenerator(name = "post_id_seq",sequenceName = "post_id_seq")
     @GeneratedValue (strategy = GenerationType.SEQUENCE,generator = "post_id_seq")
@@ -18,6 +22,20 @@ public class Post {
     @Column(length = 120)
     private String description;
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @ManyToMany(fetch = FetchType.LAZY,
                 cascade = {CascadeType.MERGE,CascadeType.PERSIST})

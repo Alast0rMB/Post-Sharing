@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "comments")
-public class Comment {
+public class Comment extends AuditModel{
     @Id
     @SequenceGenerator(name = "comments_id_seq",sequenceName = "comments_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "comments_id_seq")

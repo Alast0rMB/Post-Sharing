@@ -1,11 +1,8 @@
 package example.website;
 
-import example.website.Model.Comment;
-import example.website.Model.Post;
-import example.website.Model.Tag;
-import example.website.Repository.CommentRepository;
-import example.website.Repository.PostRepository;
-import example.website.Repository.TagRepository;
+import example.website.Model.*;
+import example.website.Model.Enum.Gender;
+import example.website.Repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class LoadData {
     @Bean
-    public CommandLineRunner initDataBase(PostRepository postRepository, TagRepository tagRepository, CommentRepository commentRepository){
+    public CommandLineRunner initDataBase(UserProfileRepository profileRepository, UserRepository userRepository, PostRepository postRepository, TagRepository tagRepository, CommentRepository commentRepository){
         return args -> {
             //Creating Sample Posts
             Post postOne = new Post("Sample Post 1","This is a new post");
@@ -31,6 +28,18 @@ public class LoadData {
             c11.setPost(postOne);
             c2.setPost(postTwo);
             c22.setPost(postTwo);
+            User use1 = new User("Arshia");
+            User use2 = new User("Iliya");
+            UserProfile userProfile1 = new UserProfile("address1", Gender.MALE);
+            UserProfile userProfile2 = new UserProfile("address1", Gender.MALE);
+            use1.setUserProfile(userProfile1);
+            userProfile1.setUser(use1);
+            use2.setUserProfile(userProfile2);
+            userProfile2.setUser(use2);
+            userRepository.save(use1);
+            userRepository.save(use2);
+            profileRepository.save(userProfile1);
+            profileRepository.save(userProfile2);
             postRepository.save(postOne);
             postRepository.save(postTwo);
             tagRepository.save(tagOne);

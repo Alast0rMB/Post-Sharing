@@ -1,9 +1,11 @@
 package example.website.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
     @Id
     @SequenceGenerator(name = "user_id_seq",sequenceName = "user_id_seq")
@@ -11,6 +13,20 @@ public class User {
     private Long id;
 
     private String name;
+
+    @OneToOne(fetch = FetchType.LAZY,
+             cascade = {CascadeType.ALL},
+             mappedBy = "user")
+    @JsonIgnore
+    private UserProfile userProfile;
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
 
     public User(){}
     public User(String name){this.name=name;}

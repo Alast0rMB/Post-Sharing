@@ -1,5 +1,6 @@
 package example.website.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import example.website.Model.Enum.Gender;
 
 import javax.persistence.*;
@@ -15,6 +16,19 @@ public class UserProfile {
 
     private String address;
     private Gender gender;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public UserProfile(){this.gender=Gender.UNDEFINDE;}
     public UserProfile(String address,Gender gender){

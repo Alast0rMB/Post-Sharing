@@ -45,4 +45,8 @@ public class PostService {
         Post post = getPost(id);
         repository.delete(post);
     }
+
+    public List<Post> getPostByTag(Long tagId){
+        return repository.findPostsByTagsId(tagId);
+    }
 }

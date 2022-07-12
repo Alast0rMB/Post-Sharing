@@ -48,11 +48,42 @@ public class TagService {
         return tag;
     }
 
+
+    public Post getPost(Long postId){
+        return postService.getPost(postId);
+    }
+
+    public Post savePost(Post post){
+        return postService.savePost(post);
+    }
+    public Tag addTagToPost(Long postId,Tag _tag){
+        Post post = getPost(postId);
+        //Check if the tag exists
+        if(repository.existsByName(_tag.getName())){
+            _tag = getTagByName(_tag.getName());
+            post.addTag(_tag);
+            postService.savePost(post);
+        //Must create new tag
+        }else{
+            post.addTag(_tag);
+            repository.save(_tag);
+        }
+        return _tag;
+    }
+
     public List<Tag> getTagByPost(Long postId){
         if(!postService.existsById(postId)){
             throw new ResourceNotFoundException("Not found Post with id:"+postId);
         }else{
             return repository.findTagsByPostsId(postId);
+        }
+    }
+
+    public List<Post> getPostByTag(Long tagId){
+        if(!repository.existsById(tagId)){
+            throw new ResourceNotFoundException("Not found Tag with id:"+tagId);
+        }else{
+            return postService.getPostByTag(tagId);
         }
     }
 

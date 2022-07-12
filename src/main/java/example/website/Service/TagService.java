@@ -4,6 +4,7 @@ import example.website.Exception.ResourceNotFoundException;
 import example.website.Model.Post;
 import example.website.Model.Tag;
 import example.website.Repository.TagRepository;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,14 @@ public class TagService {
         Tag tag = getTag(id);
         tag.setName(_tag.getName());
         return saveTag(tag);
+    }
+
+    public Tag getTagByName(String name){
+        Tag tag = repository.findByName(name);
+        if(tag == null) {
+            throw new ResourceNotFoundException("Not found Tag with name:"+name);
+        }
+        return tag;
     }
 
     //Delete a post from database

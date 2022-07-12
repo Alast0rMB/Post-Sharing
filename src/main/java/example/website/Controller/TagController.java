@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,8 +19,14 @@ public class TagController {
 
     @GetMapping("/tags")
     //Response Entity is used for REST API, you can simply return the List as a JSON body to.
-    public ResponseEntity<List<Tag>> all(){
-        List<Tag> tags = service.getAll();
+    public ResponseEntity<List<Tag>> all(@RequestParam(value = "name",required = false,defaultValue = "null")String name){
+        List<Tag> tags = new ArrayList<>(); //Our return list
+        if(name != null && !name.equals("null")){ //If there is a name given then get using name
+            tags.add(service.getTagByName(name));
+        }
+        else { //Otherwise get all the tags
+            tags = service.getAll();
+        }
         if(tags.isEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         else

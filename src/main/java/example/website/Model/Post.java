@@ -6,7 +6,8 @@ import javax.persistence.*;
 @Table(name = "posts")
 public class Post {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "post_id_seq",sequenceName = "post_id_seq")
+    @GeneratedValue (strategy = GenerationType.SEQUENCE,generator = "post_id_seq")
     private Long id;
 
     @Column(nullable = false)
@@ -14,6 +15,12 @@ public class Post {
 
     @Column(length = 120)
     private String description;
+
+    public Post(){}
+    public Post(String title,String description){
+        this.description=description;
+        this.title=title;
+    }
 
     public Long getId() {
         return id;

@@ -18,12 +18,14 @@ public class LoadData {
             Post postTwo = new Post("Good Post","A very very good post");
             Tag tagOne = new Tag("Tag_one");
             Tag tagTwo = new Tag("Tag_two");
-            //postOne.addTag(tagOne);
-            //postTwo.addTag(tagTwo);
+            postOne.addTag(tagOne);
+            postTwo.addTag(tagOne);
+            postTwo.addTag(tagTwo);
             postRepository.save(postOne);
             postRepository.save(postTwo);
             tagRepository.save(tagOne);
             tagRepository.save(tagTwo);
+
         };
     }
 }

@@ -13,6 +13,10 @@ public class PostService {
     @Autowired
     private PostRepository repository;
 
+    public boolean existsById(Long id){
+        return repository.existsById(id);
+    }
+
     //Returns the list of all posts
     public List<Post> getAll(){
         return repository.findAll();

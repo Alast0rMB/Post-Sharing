@@ -1,6 +1,8 @@
 package example.website.Model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity//Mapping the object to database
 @Table(name = "posts")
@@ -15,6 +17,28 @@ public class Post {
 
     @Column(length = 120)
     private String description;
+
+
+    @ManyToMany(fetch = FetchType.LAZY,
+                cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @JoinTable(name = "post_tag",//The owner of the relationship
+        joinColumns = @JoinColumn(name = "post_id"),
+        inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<Tag> tags = new HashSet<>();
+
+    //Since we are the owner of the relation, if we update then we have to update owr tag
+    public void addTag(Tag tag) {
+        this.tags.add(tag);
+        tag.getPosts().add(this);
+    }
+
+    public void removeTag(long tagId) {
+        Tag tag = this.tags.stream().filter(t -> t.getId() == tagId).findFirst().orElse(null);
+        if (tag != null) {
+            this.tags.remove(tag);
+            tag.getPosts().remove(this);
+        }
+    }
 
     public Post(){}
     public Post(String title,String description){

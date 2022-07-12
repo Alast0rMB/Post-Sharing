@@ -1,9 +1,12 @@
 package example.website.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tags")
@@ -16,6 +19,20 @@ public class Tag {
     @NaturalId
     @Column(name = "name")
     private String name;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+                cascade = {CascadeType.MERGE,CascadeType.PERSIST},
+            mappedBy = "tags")
+    @JsonIgnore//ignore the logical property used in serialization and deserialization
+    private Set<Post> posts = new HashSet<>();
+
+    public Set<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
+    }
 
     public long getId() {
         return id;
@@ -39,14 +56,6 @@ public class Tag {
                 ", name='" + name + '\'' +
                 '}';
     }
-
-    /*@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Tag tag = (Tag) o;
-        return id == tag.id || name.equals(tag.name); //They're the same if name or id are the same
-    }*/
 
     @Override
     public int hashCode() {

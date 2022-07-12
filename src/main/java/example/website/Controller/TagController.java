@@ -33,6 +33,12 @@ public class TagController {
             return new ResponseEntity<>(tags,HttpStatus.OK);
     }
 
+    @GetMapping("/posts/{postId}/tags")
+    public ResponseEntity<List<Tag>> tagsByPost(@PathVariable (name = "postId")Long postId){
+        List<Tag> tags = service.getTagByPost(postId);
+        return new ResponseEntity<>(tags,HttpStatus.OK);
+    }
+
     @GetMapping("/tags/{id}")
     public ResponseEntity<Tag> one(@PathVariable(name = "id")  Long id){
         Tag tag = service.getTag(id);

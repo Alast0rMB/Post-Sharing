@@ -15,6 +15,9 @@ public class TagService {
     @Autowired
     private TagRepository repository;
 
+    @Autowired
+    private PostService postService;
+
     //Returns the list of all posts
     public List<Tag> getAll(){
         return repository.findAll();
@@ -43,6 +46,14 @@ public class TagService {
             throw new ResourceNotFoundException("Not found Tag with name:"+name);
         }
         return tag;
+    }
+
+    public List<Tag> getTagByPost(Long postId){
+        if(!postService.existsById(postId)){
+            throw new ResourceNotFoundException("Not found Post with id:"+postId);
+        }else{
+            return repository.findTagsByPostsId(postId);
+        }
     }
 
     //Delete a post from database

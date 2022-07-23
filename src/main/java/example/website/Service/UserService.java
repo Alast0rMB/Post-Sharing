@@ -1,9 +1,9 @@
-package example.website.BusinessProcesses;
+package example.website.Service;
 
 import example.website.Exception.ResourceNotFoundException;
-import example.website.Common.User;
-import example.website.Common.UserProfile;
-import example.website.DataAccess.UserRepository;
+import example.website.Entity.User;
+import example.website.Entity.UserProfile;
+import example.website.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

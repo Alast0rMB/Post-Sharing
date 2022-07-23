@@ -1,6 +1,6 @@
-package example.website.DataAccess;
+package example.website.Repository;
 
-import example.website.Common.Post;
+import example.website.Entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

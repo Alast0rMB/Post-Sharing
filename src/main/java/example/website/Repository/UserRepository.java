@@ -1,6 +1,6 @@
-package example.website.DataAccess;
+package example.website.Repository;
 
-import example.website.Common.User;
+import example.website.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

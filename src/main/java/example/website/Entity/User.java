@@ -1,6 +1,4 @@
-package example.website.Common;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package example.website.Entity;
 
 import javax.persistence.*;
 

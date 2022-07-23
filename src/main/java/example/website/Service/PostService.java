@@ -1,8 +1,8 @@
-package example.website.BusinessProcesses;
+package example.website.Service;
 
 import example.website.Exception.ResourceNotFoundException;
-import example.website.Common.Post;
-import example.website.DataAccess.PostRepository;
+import example.website.Entity.Post;
+import example.website.Repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

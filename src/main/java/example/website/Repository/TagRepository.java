@@ -1,6 +1,6 @@
-package example.website.DataAccess;
+package example.website.Repository;
 
-import example.website.Common.Tag;
+import example.website.Entity.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

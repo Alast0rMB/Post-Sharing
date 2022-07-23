@@ -1,6 +1,6 @@
-package example.website.DataAccess;
+package example.website.Repository;
 
-import example.website.Common.Comment;
+import example.website.Entity.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

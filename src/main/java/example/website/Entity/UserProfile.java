@@ -1,7 +1,6 @@
-package example.website.Common;
+package example.website.Entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import example.website.Common.Enum.Gender;
+import example.website.Entity.Enum.Gender;
 
 import javax.persistence.*;
 import java.util.Date;

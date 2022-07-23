@@ -1,9 +1,9 @@
-package example.website.Controller;
+package example.website.BusinessInterfaces;
 
-import example.website.Model.Post;
-import example.website.Model.User;
-import example.website.Service.PostService;
-import example.website.Service.UserService;
+import example.website.Common.Post;
+import example.website.Common.User;
+import example.website.BusinessProcesses.PostService;
+import example.website.BusinessProcesses.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

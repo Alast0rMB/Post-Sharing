@@ -1,4 +1,4 @@
-package example.website.Model.Enum;
+package example.website.Common.Enum;
 
 public enum Gender {
     MALE,

@@ -1,4 +1,4 @@
-package example.website.Model;
+package example.website.Common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;

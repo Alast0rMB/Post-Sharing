@@ -1,8 +1,8 @@
-package example.website.Controller;
+package example.website.BusinessInterfaces;
 
-import example.website.Model.Post;
-import example.website.Model.Tag;
-import example.website.Service.TagService;
+import example.website.Common.Post;
+import example.website.Common.Tag;
+import example.website.BusinessProcesses.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

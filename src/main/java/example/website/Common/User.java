@@ -1,4 +1,4 @@
-package example.website.Model;
+package example.website.Common;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -14,10 +14,7 @@ public class User {
 
     private String name;
 
-    @OneToOne(fetch = FetchType.LAZY,
-             cascade = {CascadeType.ALL},
-             mappedBy = "user")
-    @JsonIgnore
+    @Embedded
     private UserProfile userProfile;
 
     public UserProfile getUserProfile() {

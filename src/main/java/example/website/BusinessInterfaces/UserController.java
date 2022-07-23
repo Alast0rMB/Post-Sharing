@@ -1,12 +1,11 @@
-package example.website.Controller;
+package example.website.BusinessInterfaces;
 
 import example.website.Exception.ResourceNotFoundException;
-import example.website.Model.Comment;
-import example.website.Model.Post;
-import example.website.Model.User;
-import example.website.Model.UserProfile;
-import example.website.Service.PostService;
-import example.website.Service.UserService;
+import example.website.Common.Post;
+import example.website.Common.User;
+import example.website.Common.UserProfile;
+import example.website.BusinessProcesses.PostService;
+import example.website.BusinessProcesses.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,16 +38,15 @@ public class UserController {
         if(!service.existsById(id)){
             throw new ResourceNotFoundException("Not found Post with id = " + id);
         }
-        UserProfile userProfile = service.getProfile(id);
-        return new ResponseEntity<>(userProfile, HttpStatus.OK);
+        User user = service.getById(id);
+        return new ResponseEntity<>(user.getUserProfile(), HttpStatus.OK);
     }
 
     @PostMapping("/users")
     public ResponseEntity<User> add(@RequestBody User user){
         UserProfile userProfile = new UserProfile();
         user.setUserProfile(userProfile);
-        userProfile.setUser(user);
-        return new ResponseEntity<>(service.save(user).getUser(),HttpStatus.CREATED);
+        return new ResponseEntity<>(service.save(user),HttpStatus.CREATED);
     }
 
     @PutMapping("/users/{id}")
@@ -58,9 +56,9 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}/profile")
-    public ResponseEntity<UserProfile> update(@PathVariable Long id,@RequestBody UserProfile user){
-        user = service.updateProfile(id,user);
-        return new ResponseEntity<>(user,HttpStatus.CREATED);
+    public ResponseEntity<UserProfile> update(@PathVariable Long id,@RequestBody UserProfile userprof){
+        userprof = service.updateProfile(id,userprof);
+        return new ResponseEntity<>(userprof,HttpStatus.CREATED);
     }
 
 

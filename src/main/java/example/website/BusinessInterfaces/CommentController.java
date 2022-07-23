@@ -1,10 +1,10 @@
-package example.website.Controller;
+package example.website.BusinessInterfaces;
 
 import example.website.Exception.ResourceNotFoundException;
-import example.website.Model.Comment;
-import example.website.Model.Post;
-import example.website.Service.CommentService;
-import example.website.Service.PostService;
+import example.website.Common.Comment;
+import example.website.Common.Post;
+import example.website.BusinessProcesses.CommentService;
+import example.website.BusinessProcesses.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

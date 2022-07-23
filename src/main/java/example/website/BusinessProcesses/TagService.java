@@ -1,10 +1,9 @@
-package example.website.Service;
+package example.website.BusinessProcesses;
 
 import example.website.Exception.ResourceNotFoundException;
-import example.website.Model.Post;
-import example.website.Model.Tag;
-import example.website.Repository.TagRepository;
-import net.bytebuddy.implementation.bytecode.Throw;
+import example.website.Common.Post;
+import example.website.Common.Tag;
+import example.website.DataAccess.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

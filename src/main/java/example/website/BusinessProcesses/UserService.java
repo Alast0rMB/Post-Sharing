@@ -3,7 +3,6 @@ package example.website.BusinessProcesses;
 import example.website.Exception.ResourceNotFoundException;
 import example.website.Common.User;
 import example.website.Common.UserProfile;
-import example.website.DataAccess.UserProfileRepository;
 import example.website.DataAccess.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +13,6 @@ import java.util.List;
 public class UserService {
     @Autowired
     private UserRepository repository;
-    @Autowired
-    private UserProfileRepository profileRepository;
-
     public boolean existsById(Long id){
         return repository.existsById(id);
     }
@@ -32,16 +28,16 @@ public class UserService {
     }
 
     //Adds a new post to the
-    public UserProfile save(User user){
-        repository.save(user);
-        return profileRepository.save(user.getUserProfile());
+    public User save(User user){
+        user.setUserProfile(new UserProfile());
+        return repository.save(user);
     }
 
     //Updates the new post based on given info
     public User update(Long id, User newUser){
         User user = getById(id);
         user.setName(newUser.getName());
-        return save(user).getUser();
+        return save(user);
     }
 
     //Delete a post from database
@@ -51,16 +47,16 @@ public class UserService {
     }
 
     public UserProfile getProfile(Long userId){
-        return profileRepository.findByUserId(userId);
+        return getById(userId).getUserProfile();
     }
 
     public UserProfile updateProfile(Long userId,UserProfile profile){
         if(!existsById(userId))
            throw new ResourceNotFoundException("Not found User with id = " + userId);
+        User user = getById(userId);
         UserProfile userProfile = getProfile(userId);
         userProfile.setAddress(profile.getAddress());
         userProfile.setGender(profile.getGender());
-        repository.save(userProfile.getUser());
-        return profileRepository.save(userProfile); //Also save the user(child)
+        return repository.save(user).getUserProfile(); //Also save the user(child)
     }
 }

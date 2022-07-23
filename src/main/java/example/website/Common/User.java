@@ -14,10 +14,7 @@ public class User {
 
     private String name;
 
-    @OneToOne(fetch = FetchType.LAZY,
-             cascade = {CascadeType.ALL},
-             mappedBy = "user")
-    @JsonIgnore
+    @Embedded
     private UserProfile userProfile;
 
     public UserProfile getUserProfile() {
